@@ -1,0 +1,67 @@
+/*
+  The only file in the project allowed to hold colour literals.
+
+  Palette provenance. Every value below was taken from a real pixel of a supplied
+  asset: k-means (k=8, sampled on a stride grid, 14 iterations) over the opaque
+  pixels, then each centroid snapped to the nearest actual pixel; the coordinate
+  is the pixel the value was read from. Reproduce with: node scripts/analyze-assets.mjs
+
+  brand/LOGO SIGNPAIR PNG...png   RGBA 2000x2000, 3,605,779 fully transparent
+                                  pure-black pixels (resized premultiplied)
+  brand/LOGO SIGNPAIR PNG.png     RGBA 2000x2000, fully opaque
+  reference/SIGNPAIR 1.jpg.jpeg   RGB 1600x900
+*/
+:root {
+  /* surfaces */
+  --ink-0: #040402;      /* reference/SIGNPAIR 1  @(944,0)    60.1% of pixels */
+  --ink-1: #181717;      /* brand opaque PNG      @(0,0)      90.3% of pixels */
+  --ink-2: #1f170c;      /* reference/SIGNPAIR 1  @(1204,336) warm shadow     */
+  --line: #4a3925;       /* reference/SIGNPAIR 1  @(1176,352) warm hairline   */
+
+  /* gold half of the mark */
+  --gold: #f1b826;       /* brand transparent PNG @(1188,927) */
+  --gold-hi: #fbe161;    /* brand transparent PNG @(1107,837) */
+  --gold-lo: #bd8108;    /* brand transparent PNG @(1278,1080) */
+
+  /* silver half of the mark */
+  --silver-hi: #efeff0;  /* brand transparent PNG @(720,675) */
+  --silver: #aeb0b3;     /* brand transparent PNG @(603,1089) */
+  --silver-lo: #6e7075;  /* brand transparent PNG @(738,783) */
+
+  /* type */
+  --paper: #fcfbf9;      /* reference/SIGNPAIR 1  @(1096,208) headline white */
+
+  /* derived, no new hues */
+  --veil-1: color-mix(in srgb, var(--paper) 4%, transparent);
+  --veil-2: color-mix(in srgb, var(--paper) 8%, transparent);
+  --shade: color-mix(in srgb, var(--ink-0) 62%, transparent);
+  --glow-gold: color-mix(in srgb, var(--gold) 28%, transparent);
+  --glow-silver: color-mix(in srgb, var(--silver-hi) 16%, transparent);
+  --hair: color-mix(in srgb, var(--line) 70%, transparent);
+
+  /* geometry */
+  --r-s: 10px;
+  --r-m: 16px;
+  --r-l: 24px;
+  --gutter: 16px;
+  --wrap: 1200px;
+  --tap: 44px;
+
+  /* motion (hand-set, not measured: the reference site was unreachable) */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 160ms;
+  --t-mid: 320ms;
+  --t-slow: 640ms;
+
+  /* type */
+  --font-sans: "Inter Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+@media (min-width: 768px) {
+  :root { --gutter: 24px; }
+}
+@media (min-width: 1200px) {
+  :root { --gutter: 32px; }
+}
